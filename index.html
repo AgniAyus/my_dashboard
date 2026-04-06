@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutomatIQ — Business Automation for Growing India</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f5f0e8;
+    --saffron: #ff6b00;
+    --saffron-light: #ff8c35;
+    --jade: #00b37e;
+    --slate: #1c1c2e;
+    --muted: #6b6b7b;
+    --border: rgba(10,10,15,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999; opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(245, 240, 232, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo span { color: var(--saffron); }
+
+  nav ul { display: flex; gap: 2.5rem; list-style: none; }
+  nav ul a {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  nav ul a:hover { opacity: 1; }
+
+  .nav-cta {
+    background: var(--ink);
+    color: var(--paper) !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
+    opacity: 1 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--saffron) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 5% 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    bottom: -2rem;
+    right: -1rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(8rem, 20vw, 22rem);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(10,10,15,0.06);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--saffron);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border-radius: 2px;
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before { content: '◆'; font-size: 0.6rem; }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  h1 .accent { color: var(--saffron); display: block; }
+  h1 .outline {
+    -webkit-text-stroke: 2px var(--ink);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--saffron);
+    color: white;
+    padding: 1rem 2.2rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .btn-primary:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    padding: 1rem 2.2rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 2px solid var(--ink);
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--paper); }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    position: relative; z-index: 1;
+    display: flex; justify-content: center; align-items: center;
+    animation: fadeIn 1s 0.4s ease both;
+  }
+
+  .dashboard-card {
+    background: var(--slate);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 20px 20px 0 rgba(10,10,15,0.15);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .dash-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .dash-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--jade);
+    box-shadow: 0 0 0 3px rgba(0,179,126,0.2);
+    animation: pulse 2s infinite;
+  }
+
+  .metric-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .metric {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  .metric-label {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
+    font-family: 'Syne', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+  .metric-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: white;
+    letter-spacing: 0.02em;
+  }
+  .metric-val.green { color: var(--jade); }
+  .metric-val.orange { color: var(--saffron); }
+
+  .automation-list { display: flex; flex-direction: column; gap: 0.6rem; }
+  .auto-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 6px;
+    padding: 0.7rem 0.9rem;
+  }
+  .auto-icon {
+    width: 28px; height: 28px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .auto-icon.o { background: rgba(255,107,0,0.15); }
+  .auto-icon.g { background: rgba(0,179,126,0.15); }
+  .auto-icon.b { background: rgba(100,150,255,0.15); }
+
+  .auto-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+  }
+  .auto-status {
+    margin-left: auto;
+    font-size: 0.65rem;
+    font-family: 'Syne', sans-serif;
+    color: var(--jade);
+    background: rgba(0,179,126,0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1rem 0;
+    overflow: hidden;
+    border-top: 2px solid var(--saffron);
+    border-bottom: 2px solid var(--saffron);
+  }
+  .marquee-track {
+    display: flex; gap: 3rem;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .marquee-item span { color: var(--saffron); }
+
+  /* PAIN SECTION */
+  .section { padding: 6rem 5%; }
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  /* PAIN POINTS */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1.5px solid var(--border);
+  }
+  .pain-card {
+    background: var(--paper);
+    padding: 2rem;
+    transition: background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .pain-card:hover { background: var(--ink); color: var(--paper); }
+  .pain-card:hover .pain-num { -webkit-text-stroke-color: rgba(245,240,232,0.15); }
+  .pain-card:hover .pain-desc { color: rgba(245,240,232,0.6); }
+
+  .pain-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    -webkit-text-stroke: 1.5px rgba(10,10,15,0.12);
+    color: transparent;
+    line-height: 1;
+    margin-bottom: 1rem;
+    transition: -webkit-text-stroke-color 0.25s;
+  }
+  .pain-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .pain-desc { font-size: 0.88rem; line-height: 1.6; color: var(--muted); transition: color 0.25s; }
+
+  /* SERVICES */
+  .services-bg { background: var(--slate); color: var(--paper); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .service-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+    cursor: default;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--saffron);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .service-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-4px); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    font-size: 2rem; margin-bottom: 1.2rem;
+    display: block;
+  }
+  .service-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+    color: white;
+  }
+  .service-desc {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.55);
+  }
+  .service-tools {
+    margin-top: 1.2rem;
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .tool-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    background: rgba(255,107,0,0.12);
+    border: 1px solid rgba(255,107,0,0.2);
+    padding: 0.25rem 0.55rem;
+    border-radius: 2px;
+  }
+
+  /* HOW IT WORKS */
+  .steps-wrap { max-width: 860px; }
+  .step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .step.visible { opacity: 1; transform: none; }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--saffron);
+    line-height: 1;
+    opacity: 0.9;
+  }
+  .step-content {}
+  .step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .step-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+  /* TESTIMONIALS */
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .testi-card {
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    position: relative;
+  }
+  .testi-card::before {
+    content: '"';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 6rem;
+    color: var(--saffron);
+    opacity: 0.15;
+    position: absolute;
+    top: -1rem; left: 1.5rem;
+    line-height: 1;
+  }
+  .testi-text {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    position: relative; z-index: 1;
+  }
+  .testi-author {
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .author-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--saffron);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .author-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .author-role { font-size: 0.78rem; color: var(--muted); }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+  }
+  .price-card {
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    position: relative;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .price-card:hover { transform: translateY(-6px); box-shadow: 8px 8px 0 rgba(10,10,15,0.08); }
+  .price-card.featured {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--saffron);
+    box-shadow: 8px 8px 0 var(--saffron);
+  }
+  .featured-badge {
+    position: absolute; top: -1px; right: 1.5rem;
+    background: var(--saffron);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 0 0 4px 4px;
+  }
+  .plan-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 0.8rem;
+  }
+  .plan-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .price-note { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .price-card.featured .price-note { color: rgba(245,240,232,0.5); }
+
+  .plan-features { list-style: none; margin-bottom: 2rem; }
+  .plan-features li {
+    font-size: 0.87rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(10,10,15,0.06);
+    display: flex; gap: 0.6rem; align-items: flex-start;
+    line-height: 1.4;
+  }
+  .price-card.featured .plan-features li { border-bottom-color: rgba(245,240,232,0.08); }
+  .plan-features li::before { content: '→'; color: var(--saffron); flex-shrink: 0; }
+
+  /* CTA SECTION */
+  .cta-section {
+    background: var(--saffron);
+    padding: 6rem 5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30vw;
+    color: rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    line-height: 1;
+  }
+  .cta-section .section-title { color: white; }
+  .cta-section .section-sub { color: rgba(255,255,255,0.75); margin: 0 auto 2.5rem; }
+  .btn-white {
+    background: white;
+    color: var(--saffron);
+    padding: 1.1rem 2.8rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 5px 5px 0 rgba(10,10,15,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-white:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 rgba(10,10,15,0.2); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3rem 5% 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: end;
+  }
+  .footer-brand .logo { color: var(--paper); }
+  .footer-tagline { font-size: 0.85rem; color: rgba(245,240,232,0.4); margin-top: 0.5rem; }
+  .footer-links { display: flex; gap: 2rem; justify-content: flex-end; }
+  .footer-links a {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(245,240,232,0.5);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--saffron); }
+  .footer-bottom {
+    grid-column: 1/-1;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy { font-size: 0.78rem; color: rgba(245,240,232,0.3); }
+  .made-in {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--saffron);
+    letter-spacing: 0.08em;
+  }
+
+  /* MOBILE MENU */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+  .hamburger span { width: 24px; height: 2px; background: var(--ink); display: block; transition: all 0.3s; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(0,179,126,0.2); }
+    50% { box-shadow: 0 0 0 6px rgba(0,179,126,0.05); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+    .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+    .hero-visual { display: none; }
+    footer { grid-template-columns: 1fr; }
+    .footer-links { justify-content: flex-start; }
+    h1 { font-size: clamp(3rem, 11vw, 5rem); }
+  }
+
+  /* CONTACT FORM */
+  .contact-form {
+    max-width: 600px;
+    display: grid;
+    gap: 1rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-field input, .form-field textarea, .form-field select {
+    width: 100%;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    padding: 0.9rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+    border-color: var(--saffron);
+  }
+  .form-field textarea { height: 120px; resize: vertical; }
+  .form-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Automat<span>IQ</span></a>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Free Audit</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-tag">India's Automation Partner</div>
+    <h1>
+      Automate Your
+      <span class="accent">Business.</span>
+      <span class="outline">Grow Faster.</span>
+    </h1>
+    <p class="hero-sub">
+      We build custom automations for small &amp; medium businesses in Tier-2 and Tier-3 cities — so you spend less time on repetitive tasks and more time on growth.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get Free Audit →</a>
+      <a href="#services" class="btn-secondary">See What We Do</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="dashboard-card">
+      <div class="dash-header">
+        <span class="dash-title">AutomatIQ Dashboard</span>
+        <span class="live-dot"></span>
+      </div>
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-label">Hours Saved / mo</div>
+          <div class="metric-val green">142</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Tasks Automated</div>
+          <div class="metric-val orange">38</div>
+        </div>
+      </div>
+      <div class="automation-list">
+        <div class="auto-item">
+          <div class="auto-icon o">📋</div>
+          <span class="auto-name">Invoice Generation</span>
+          <span class="auto-status">Active</span>
+        </div>
+        <div class="auto-item">
+          <div class="auto-icon g">💬</div>
+          <span class="auto-name">WhatsApp Follow-ups</span>
+          <span class="auto-status">Active</span>
+        </div>
+        <div class="auto-item">
+          <div class="auto-icon b">📊</div>
+          <span class="auto-name">Inventory Alerts</span>
+          <span class="auto-status">Active</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bg-text">AUTO</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">WhatsApp Automation <span>✦</span></span>
+    <span class="marquee-item">Invoice &amp; Billing <span>✦</span></span>
+    <span class="marquee-item">Lead Management <span>✦</span></span>
+    <span class="marquee-item">Inventory Tracking <span>✦</span></span>
+    <span class="marquee-item">Customer Follow-ups <span>✦</span></span>
+    <span class="marquee-item">Report Generation <span>✦</span></span>
+    <span class="marquee-item">Social Media Posting <span>✦</span></span>
+    <span class="marquee-item">Appointment Booking <span>✦</span></span>
+    <!-- duplicate for infinite scroll -->
+    <span class="marquee-item">WhatsApp Automation <span>✦</span></span>
+    <span class="marquee-item">Invoice &amp; Billing <span>✦</span></span>
+    <span class="marquee-item">Lead Management <span>✦</span></span>
+    <span class="marquee-item">Inventory Tracking <span>✦</span></span>
+    <span class="marquee-item">Customer Follow-ups <span>✦</span></span>
+    <span class="marquee-item">Report Generation <span>✦</span></span>
+    <span class="marquee-item">Social Media Posting <span>✦</span></span>
+    <span class="marquee-item">Appointment Booking <span>✦</span></span>
+  </div>
+</div>
+
+<!-- PAIN POINTS -->
+<section class="section" id="pain">
+  <div class="section-label">The Problem</div>
+  <h2 class="section-title">Sound Familiar?</h2>
+  <p class="section-sub">Local businesses lose hundreds of hours every month to tasks that can be automated. Here's what we see daily.</p>
+
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-num">01</div>
+      <div class="pain-title">Manual Follow-Ups</div>
+      <p class="pain-desc">Calling or texting every lead manually. Leads slip through because there's no system to track or follow up consistently.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-num">02</div>
+      <div class="pain-title">Paper-Based Billing</div>
+      <p class="pain-desc">Creating invoices by hand, chasing payments, and no clear record of who has paid and who hasn't.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-num">03</div>
+      <div class="pain-title">Zero Online Presence</div>
+      <p class="pain-desc">No automated social media, no Google My Business updates, no way to collect reviews from happy customers.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-num">04</div>
+      <div class="pain-title">Inventory Chaos</div>
+      <p class="pain-desc">No alerts when stock runs low. Orders missed because someone forgot to restock. No visibility into what's selling.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services-bg" id="services">
+  <div class="section-label" style="color:rgba(255,107,0,0.8)">What We Build</div>
+  <h2 class="section-title">Automation Solutions</h2>
+  <p class="section-sub" style="color:rgba(245,240,232,0.5)">Practical automations built for the realities of running a local business in India — affordable, reliable, and easy to use.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">💬</span>
+      <div class="service-name">WhatsApp Business Automation</div>
+      <p class="service-desc">Auto-reply to inquiries, send order updates, collect payments, and follow up with leads — all on WhatsApp, where your customers already are.</p>
+      <div class="service-tools">
+        <span class="tool-tag">WhatsApp API</span>
+        <span class="tool-tag">n8n</span>
+        <span class="tool-tag">Make</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">📋</span>
+      <div class="service-name">Invoice & Payment Automation</div>
+      <p class="service-desc">Auto-generate GST invoices, send payment reminders, and reconcile collections — without touching a spreadsheet.</p>
+      <div class="service-tools">
+        <span class="tool-tag">Zoho</span>
+        <span class="tool-tag">Razorpay</span>
+        <span class="tool-tag">Google Sheets</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🎯</span>
+      <div class="service-name">Lead Management CRM</div>
+      <p class="service-desc">Capture leads from Instagram, JustDial, or your website. Auto-assign, track, and follow up with every single one through a simple pipeline.</p>
+      <div class="service-tools">
+        <span class="tool-tag">Notion</span>
+        <span class="tool-tag">Airtable</span>
+        <span class="tool-tag">Zapier</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">📦</span>
+      <div class="service-name">Inventory & Stock Alerts</div>
+      <p class="service-desc">Get WhatsApp alerts when stock runs low, auto-update Google Sheets, and generate weekly purchase summaries for your staff.</p>
+      <div class="service-tools">
+        <span class="tool-tag">Google Sheets</span>
+        <span class="tool-tag">n8n</span>
+        <span class="tool-tag">Telegram Bot</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">📱</span>
+      <div class="service-name">Social Media Automation</div>
+      <p class="service-desc">Schedule posts to Instagram, Facebook, and Google My Business. Auto-reply to comments and DMs. Collect and respond to reviews.</p>
+      <div class="service-tools">
+        <span class="tool-tag">Buffer</span>
+        <span class="tool-tag">Meta API</span>
+        <span class="tool-tag">Make</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">📊</span>
+      <div class="service-name">Reporting & Dashboards</div>
+      <p class="service-desc">Weekly sales reports delivered to your phone. Visual dashboards with revenue, top-selling items, and team performance — without Excel.</p>
+      <div class="service-tools">
+        <span class="tool-tag">Google Data Studio</span>
+        <span class="tool-tag">Sheets</span>
+        <span class="tool-tag">n8n</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section" id="process">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">From Audit to Automation in 2 Weeks</h2>
+  <p class="section-sub">We keep it simple. No jargon, no bloated software. Just results.</p>
+
+  <div class="steps-wrap">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-title">Free Business Audit</div>
+        <p class="step-desc">We spend 30 minutes understanding how your business runs today — where time is wasted, what's getting missed, and what your biggest pain points are. No selling, just listening.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-title">Custom Automation Blueprint</div>
+        <p class="step-desc">We map out exactly which automations will make the biggest difference for your specific business — with a clear timeline and cost, so there are no surprises.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-title">Build &amp; Integrate</div>
+        <p class="step-desc">We build your automations in 5–14 days using tools your team can understand. We connect them to the apps you already use — WhatsApp, Google Sheets, Razorpay, and more.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-title">Handover &amp; Ongoing Support</div>
+        <p class="step-desc">We train your team, hand over simple controls, and stay on call for 30 days. You're never left alone. Ongoing maintenance plans available at low cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" style="background: #f0ebe0;">
+  <div class="section-label">Client Results</div>
+  <h2 class="section-title">What Our Clients Say</h2>
+  <p class="section-sub">Real businesses, real results — from cities just like yours.</p>
+
+  <div class="testi-grid">
+    <div class="testi-card">
+      <p class="testi-text">We used to spend 3 hours a day just sending payment reminders on WhatsApp. Now it's fully automatic. We've recovered 40% more overdue payments since then.</p>
+      <div class="testi-author">
+        <div class="author-avatar">RK</div>
+        <div>
+          <div class="author-name">Ramesh Kashyap</div>
+          <div class="author-role">Hardware Store Owner, Bilaspur</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-text">I was skeptical that automation was only for big companies. AutomatIQ set up lead tracking for my clinic in less than a week. My staff loves it, and I've seen a 60% improvement in follow-ups.</p>
+      <div class="testi-author">
+        <div class="author-avatar">PS</div>
+        <div>
+          <div class="author-name">Dr. Priya Singh</div>
+          <div class="author-role">Dental Clinic, Raipur</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-text">Our social media was completely dead. Now posts go out every day automatically, and we get customer reviews coming in on autopilot. Business has grown by 30% in 3 months.</p>
+      <div class="testi-author">
+        <div class="author-avatar">AJ</div>
+        <div>
+          <div class="author-name">Ankita Joshi</div>
+          <div class="author-role">Boutique Owner, Jabalpur</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title">Simple, Honest Pricing</h2>
+  <p class="section-sub">No hidden fees. No software license trap. Pay once and own your automations.</p>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">₹9,999</div>
+      <div class="price-note">one-time setup + ₹1,499/mo support</div>
+      <ul class="plan-features">
+        <li>1 automation workflow</li>
+        <li>WhatsApp or billing automation</li>
+        <li>Google Sheets integration</li>
+        <li>30-day support</li>
+        <li>1 training session</li>
+      </ul>
+      <a href="#contact" class="btn-secondary" style="width:100%;text-align:center;display:block">Get Started</a>
+    </div>
+    <div class="price-card featured">
+      <div class="featured-badge">Most Popular</div>
+      <div class="plan-name">Growth</div>
+      <div class="plan-price">₹24,999</div>
+      <div class="price-note">one-time setup + ₹2,999/mo support</div>
+      <ul class="plan-features">
+        <li>Up to 4 automation workflows</li>
+        <li>WhatsApp + CRM + Billing</li>
+        <li>Social media automation</li>
+        <li>Custom dashboard & reports</li>
+        <li>60-day priority support</li>
+        <li>2 training sessions</li>
+      </ul>
+      <a href="#contact" class="btn-primary" style="width:100%;text-align:center;display:block;box-shadow:4px 4px 0 rgba(245,240,232,0.15)">Get Started</a>
+    </div>
+    <div class="price-card">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price">Custom</div>
+      <div class="price-note">for multi-branch businesses</div>
+      <ul class="plan-features">
+        <li>Unlimited workflows</li>
+        <li>Full business audit & strategy</li>
+        <li>Multi-branch integration</li>
+        <li>Dedicated account manager</li>
+        <li>Custom AI assistants</li>
+        <li>Priority 24/7 support</li>
+      </ul>
+      <a href="#contact" class="btn-secondary" style="width:100%;text-align:center;display:block">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact" style="background:#f0ebe0;">
+  <div class="section-label">Let's Talk</div>
+  <h2 class="section-title">Book Your Free Audit</h2>
+  <p class="section-sub">Tell us about your business. We'll reach out within 24 hours with a free automation roadmap — no strings attached.</p>
+
+  <form class="contact-form" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <div class="form-field">
+        <label class="form-label">Your Name</label>
+        <input type="text" placeholder="Ramesh Kumar" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Phone / WhatsApp</label>
+        <input type="tel" placeholder="+91 98765 43210" required>
+      </div>
+    </div>
+    <div class="form-field">
+      <label class="form-label">Business Name & City</label>
+      <input type="text" placeholder="e.g. Krishna Traders, Bilaspur" required>
+    </div>
+    <div class="form-field">
+      <label class="form-label">Business Type</label>
+      <select>
+        <option>Retail / Trading</option>
+        <option>Medical / Clinic</option>
+        <option>Restaurant / Food</option>
+        <option>Manufacturing</option>
+        <option>Service Business</option>
+        <option>Education / Coaching</option>
+        <option>Real Estate</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label class="form-label">What's your biggest time-waster right now?</label>
+      <textarea placeholder="e.g. We spend 2 hours daily on manual billing..."></textarea>
+    </div>
+    <button type="submit" class="btn-primary" style="width:100%;text-align:center;font-size:1rem;padding:1.2rem">
+      Book Free Audit →
+    </button>
+  </form>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-section">
+  <div class="cta-bg">GO</div>
+  <div style="position:relative;z-index:1">
+    <h2 class="section-title">Ready to Stop Working IN Your Business?</h2>
+    <p class="section-sub">Join 50+ local businesses across India that have saved thousands of hours with AutomatIQ.</p>
+    <a href="#contact" class="btn-white">Start With a Free Audit</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="logo">Automat<span>IQ</span></a>
+    <p class="footer-tagline">Automation for Growing India 🇮🇳</p>
+  </div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 AutomatIQ. All rights reserved.</span>
+    <span class="made-in">Made in India ✦ For India</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal for steps
+  const steps = document.querySelectorAll('.step');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 120);
+      }
+    });
+  }, { threshold: 0.15 });
+  steps.forEach(s => observer.observe(s));
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = '✓ Request Received! We\'ll reach out on WhatsApp soon.';
+    btn.style.background = '#00b37e';
+    btn.style.boxShadow = '4px 4px 0 rgba(0,90,60,0.3)';
+    btn.disabled = true;
+  }
+
+  // Hamburger (mobile)
+  document.querySelector('.hamburger').addEventListener('click', () => {
+    const ul = document.querySelector('nav ul');
+    ul.style.display = ul.style.display === 'flex' ? 'none' : 'flex';
+    ul.style.flexDirection = 'column';
+    ul.style.position = 'absolute';
+    ul.style.top = '60px';
+    ul.style.left = '0';
+    ul.style.right = '0';
+    ul.style.background = 'var(--paper)';
+    ul.style.padding = '1.5rem 5%';
+    ul.style.gap = '1rem';
+    ul.style.borderBottom = '2px solid var(--saffron)';
+  });
+</script>
+</body>
+</html>
